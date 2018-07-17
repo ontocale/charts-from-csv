@@ -1,7 +1,7 @@
-import convertStringsToNumbers from '/js/string-to-number.js'
-import drawTable from '/js/drawTable.js'
-import graphsConfig from '/js/modules/graphsConfig.js'
-import drawGraph from '/js/drawGraph.js'
+import convertStringsToNumbers from '../string-to-number.js'
+import drawTable from '../drawTable.js'
+import graphsConfig from './graphsConfig.js'
+import drawGraph from '../drawGraph.js'
 
 
 

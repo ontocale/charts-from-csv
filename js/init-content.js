@@ -1,6 +1,6 @@
-import workTheData from '/js/modules/workTheData.js'
+import workTheData from './modules/workTheData.js'
 
-const dataWorks = [
+const dataConfig = [
   {
     file: 'country-locality-avg-yield',
     tableHost: null,
@@ -44,9 +44,9 @@ const initFirstQuery = (queryId) => {
   // select queryBoxWrapper and append activeQueryBox
   document.querySelector('.main-box .content').append(activeQueryBox)
 
-  dataWorks[0].tableHost = activeQueryBox
-  dataWorks[0].graphHost.location = dataWorks[0].tableHost
-  workTheData(dataWorks[0])
+  dataConfig[0].tableHost = activeQueryBox
+  dataConfig[0].graphHost.location = dataConfig[0].tableHost
+  workTheData(dataConfig[0])
 }
 
 export { initFirstQuery }

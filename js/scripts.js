@@ -1,6 +1,6 @@
-import { initFirstQuery } from '/js/init-content.js'
-import { switchQuery } from '/js/new-query.js'
-import domObserver from '/js/modules/domObserver.js'
+import { initFirstQuery } from './init-content.js'
+import { switchQuery } from './new-query.js'
+import domObserver from './modules/domObserver.js'
 
 
 const init = (e) => {

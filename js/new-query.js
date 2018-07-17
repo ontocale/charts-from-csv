@@ -1,6 +1,7 @@
-import workTheData from '/js/modules/workTheData.js'
+// import dataConfig from ...
+import workTheData from './modules/workTheData.js'
 
-const dataWorks = [
+const dataConfig = [
   {
     file: 'country-locality-avg-yield',
     tableHost: null,
@@ -69,14 +70,14 @@ const switchQuery = (e) => {
   let activeQueryBox = setQueryBox(e)
 
   // set config details
-  dataWorks[1].tableHost = activeQueryBox
-  dataWorks[1].graphHost.location = dataWorks[1].tableHost
-  dataWorks[1].graphHost.selector = 'table tr th[rowspan]'
+  dataConfig[1].tableHost = activeQueryBox
+  dataConfig[1].graphHost.location = dataConfig[1].tableHost
+  dataConfig[1].graphHost.selector = 'table tr th[rowspan]'
 
-  // dataWorks[1].graphHost.is = [activeQueryBox]
+  // dataConfig[1].graphHost.is = [activeQueryBox]
 
   // if no content in activeQueryBox
-  if (!activeQueryBox.firstChild) workTheData(dataWorks[1])
+  if (!activeQueryBox.firstChild) workTheData(dataConfig[1])
 }
 
 export { switchQuery }

@@ -1,9 +1,9 @@
 
-import drawCall from '/js/modules/drawCall.js'
-import wrapXLabels from '/js/modules/wrapXLabels.js'
-import legend from '/js/modules/legend.js'
-import barchart from '/js/modules/prepareBarchart.js'
-import gBars from '/js/modules/groupedBars.js'
+import drawCall from './modules/drawCall.js'
+import wrapXLabels from './modules/wrapXLabels.js'
+import legend from './modules/legend.js'
+import barchart from './modules/prepareBarchart.js'
+import gBars from './modules/groupedBars.js'
 
 const drawGraph = (o) => { // o == options
   /*
