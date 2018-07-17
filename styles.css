@@ -1,0 +1,127 @@
+* { margin: 0; padding: 0; box-sizing: border-box;}
+
+.clearfix {
+    content: "";
+    clear: both;
+    display: table;
+}
+a {
+  text-decoration: none;
+  color: #000;
+}
+.show { display: block}
+.hidden { display: none; }
+
+.main-box {
+  max-width: 1400px;
+  margin: auto;
+  padding-top: 60px;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+nav {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.nav-btn {
+  display: inline-block;
+  border-radius: 3px;
+  background: #b9c9fe;
+  color: #039;
+  height: 45px;
+  line-height: 45px;
+  padding: 0 20px;
+  margin: 0 15px;
+  font-weight: bold;
+}
+.main-nav .active {
+  background: #039;
+  color: #b9c9fe;
+}
+
+.content {
+  width: auto;
+  margin: auto
+}
+
+
+}
+table, .graphs { margin: 0 auto 40px;}
+
+.graphs svg { display: block; margin: 0 auto;}
+
+table {
+  table-layout: fixed;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  box-shadow: 0px 2px 0px rgba(0,0,0, .4);
+}
+
+
+tbody tr {
+  border-top: 1px solid #fff;
+}
+table th {
+  padding: 20px 0;
+  background: #b9c9fe;
+  color: #039;
+}
+tr th[rowspan] {
+  height: 400px; /* in tables acts like min-height */
+}
+
+.graph-box {
+  margin-bottom: 50px; /* if diplayed all in one container */
+}
+
+.inactive-graph .graph-box {
+  /* if treated with display none, long labels would not wrap as they should */
+  margin: 0;
+  visibility: hidden;
+  height: 0;
+  width: 0;
+}
+
+.active-graph .graph-box {
+  visibility: visible;
+  height: auto;
+  width: auto;
+}
+.active-graph th {
+  position: relative;
+  height: 400px;
+}
+table td {
+  height: 50px;
+  padding: 20px;
+}
+table tr {
+  background: #e8edff;
+  color: #669;
+}
+
+
+
+.active-graph .graph-box {
+  position: absolute;
+  transform: translate(180px, -50%); /* hackish; -50% because .graph-box is appended after th, which sits at vertical middle*/
+}
+
+.active-graph td {
+  color: #e8edff;
+}
+.active-graph tr:not(:first-child) { border-style: unset; }
+
+
+/*** Styles for Charts ***/
+.axis .domain { display: none; }
+/*** End style for Charts ***/
