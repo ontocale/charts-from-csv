@@ -2,7 +2,7 @@
 /***
   For a set of data = [ obj, obj, obj ] convert all properties that have strings instead of numbers
 
-  (1) identify obj properties that contain strings which MUST AND CAN be numbers  => qualifiedProperties
+  (1) identify obj properties that contain strings which MAY be numbers  => qualifiedProperties
   (2) For each qualifiedProperty of each obj:
    - convert to NaN strings that contain other things than digits, except '.' decimal separator
    - convert to numbers the other strings

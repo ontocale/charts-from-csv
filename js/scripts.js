@@ -10,14 +10,12 @@ const init = (e) => {
   document.querySelector('.main-nav').addEventListener('click', (e) => {
     if(!e.target.className.includes('nav-btn')) return
 
-    if (document.querySelector(`.js-query-box-${e.target.id}`) &&
-        document.querySelector(`.js-query-box-${e.target.id}`).classList.contains('show')
-      ) return
+    // if clicks on active btn, return
+    if (e.target.className.includes('active')) return
 
     switchQuery(e)
 
   })
-
 
   domObserver()
 

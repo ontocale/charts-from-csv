@@ -6,7 +6,7 @@ const drawCall = (o) => {
   let svg = o.svg
 
   // a bit diff course of action depending on target being
-  // array of host elements for each graph or 1 container to wrap all graphs
+  // array of one container for all graphs or array of container for each graph
 
   if (target.length == 1) {
 
@@ -20,8 +20,9 @@ const drawCall = (o) => {
 
 
   const genSvgHost = (target) => {
-    let svgHost = target.append('div')
-        .attr('class', 'graph-box')
+    let svgHost = target
+    // .append('div')
+        // .attr('class', 'graph-box')
       .append('svg')
         .attr('width', svg.width)
         .attr('height', svg.height)
@@ -32,7 +33,12 @@ const drawCall = (o) => {
     return svgHost
   }
 
-  let svgHost = genSvgHost(target)
+  let svgContainer = target.append('div').attr('class', 'graph-box')
+
+  let svgHost = genSvgHost(svgContainer)
+
+  svgContainer.append('div')
+    .attr('class', 'tooltip')
 
   svgHost.each( (d,i,g) => drawFn(d, g[i]) )
 

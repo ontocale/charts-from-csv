@@ -5,6 +5,7 @@ const toShowGraph = (child) => {
   let tbody = child.closest('tbody')
 
   tbody.addEventListener('click', (e) => {
+    e.stopPropagation()
     if (e.target != child.parentElement) return; //we assume '.graph-box direct child of th'
     tbody.classList.toggle('active-graph')
   })
@@ -19,9 +20,11 @@ const domObserver = () => {
 
   const callback = function(mutationsList) {
 
-
     let graphs = Array.from(mutationsList).reduce( (acc, el, i, arr) => {
-      if (el.type == 'childList' && el.target.classList.contains('graph-box')) acc.push(el.target)
+      if (el.target.nodeName == 'TH'
+          && el.addedNodes[0].classList // because logged strange error in console at first time as this was 'undefined'
+          && el.addedNodes[0].classList.contains('graph-box')
+        ) acc.push(el.addedNodes[0])
 
       return acc;
     }, [])
@@ -29,7 +32,6 @@ const domObserver = () => {
     graphs.forEach( x => x.closest('tbody').classList.add('inactive-graph') )
 
     graphs.forEach( x => toShowGraph(x) )
-
 
   }
 

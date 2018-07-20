@@ -1,5 +1,6 @@
 * { margin: 0; padding: 0; box-sizing: border-box;}
 
+pre { font-style: normal}
 .clearfix {
     content: "";
     clear: both;
@@ -11,6 +12,11 @@ a {
 }
 .show { display: block}
 .hidden { display: none; }
+
+.js-query-box {
+  display: none;
+}
+.js-query-box.show { display: block}
 
 .main-box {
   max-width: 1400px;
@@ -55,7 +61,7 @@ table, .graphs { margin: 0 auto 40px;}
 
 table {
   table-layout: fixed;
-  min-width: 900px;
+  min-width: 1024px;
   border-collapse: collapse;
 }
 
@@ -80,6 +86,7 @@ tr th[rowspan] {
 }
 
 .graph-box {
+  position: relative; /* for tooltip; may be overridden with absolute if needed */
   margin-bottom: 50px; /* if diplayed all in one container */
 }
 
@@ -124,4 +131,43 @@ table tr {
 
 /*** Styles for Charts ***/
 .axis .domain { display: none; }
+.axis {
+  font-weight: normal;
+  font-size: 12px;
+}
+.y-label {
+  font-size: 14px;
+}
+.title {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  z-index: 7;
+
+  font-size: 12px;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  text-align: left;
+}
+.tooltip.show { display: block; }
+.hover-borders { fill: transparent; }
+
+.tooltip .tr { margin-left: 10px; }
+
+
+.tooltip p {
+  font-weight: normal;
+  white-space: nowrap;
+  clear: both;
+}
+.tooltip .em {
+  margin-top: 8px;
+  font-weight: bold;
+}
 /*** End style for Charts ***/

@@ -11,32 +11,26 @@ const common = {
   }
 }
 
-const dataConfig = [
+let dataConfig = [
   {
     file: 'country-locality-avg-yield',
-
-    chart: { // user will input this kind of data
+    chart: {
       type: 'bar',
-      colIdx_xDomain: 1, // xDomainIdx: index of xDomain in columnsArray
-      colIdx_yDomains: [2] // ex bandDomains; to be transformed to [dataObj.data.columns[2]]
+      colIdx_xDomain: 1, // index of xDomain in columnsArray
+      colIdx_yDomains: [2] // == bandDomains; to be transformed to [dataObj.data.columns[2]]
     },
   },
   {
     file: 'country-locality-avg-yield-by-method',
-    tableHost: null,
-    data: null,
-    refinedData: null,  //maybe renamed to 'processed data'
-    graphHost: {
-      location: document,
-      selector: null,
-      is: []
-    },
-    chart: { // user will input this kind of data
+    chart: {
       type: 'bar',
-      colIdx_xDomain: 1, // xDomainIdx: index of xDomain in columnsArray
+      colIdx_xDomain: 1, // index of xDomain in columnsArray
       colIdx_yDomains: [2, 3] // ex bandDomains; to be transformed to [dataObj.data.columns[2]]
     }
   }
 ]
+
+dataConfig.map( x => Object.assign(x, common) )
+
 
 export default dataConfig

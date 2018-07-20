@@ -10,12 +10,12 @@ legend.title = (target, text, margin) => {
   return title
 }
 
-// GROUPED CHART SHOULD NOT HAVE yLabel, SHOULD HAVE A LEGEND
 legend.yLabel = (target, text, margin) => {
   let yLabel = target.append('text')
       .text(text)
       .attr('x', -margin.left)
       .attr('y', -margin.top/3)
+      .attr('class', 'y-label')
   return yLabel
 }
 
