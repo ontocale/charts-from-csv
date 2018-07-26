@@ -33,20 +33,16 @@ barchart.axis = (opt) => {
    outerPadding: .4,
    padding: .4,
    rangeRound: [0, otherNo],
-   ... d3 fn that chain with scale etc ...
+   ... d3 fns that chain with scale etc ...
  }
  ***/
 barchart.scale = (options) => {
   let scaleFn = options.type ? d3[options.type]() : options.scaleFn
-  if (!scaleFn) console.error('there is no scaleFn to build on') // this should be a try catch smthg and stop execution !
+  if (!scaleFn) console.error('there is no scaleFn to build on') // this should be a try catch smthg and stop execution ?
 
   options.type ? delete options.type : delete options.scaleFn
 
-  for (let key in options) {
-    // we assume options[key] fits "as is" as parameter for scaleFn[key];
-    // eg options[key] == {some: 'obj'} then scaleFn[key]({some: 'obj'}) is valid fn
-    scaleFn = scaleFn[key](options[key])
-  }
+  for (let key in options) { scaleFn = scaleFn[key](options[key]) }
 
   return scaleFn;
 }

@@ -25,7 +25,8 @@ let dataConfig = [
     chart: {
       type: 'bar',
       colIdx_xDomain: 1, // index of xDomain in columnsArray
-      colIdx_yDomains: [2, 3] // ex bandDomains; to be transformed to [dataObj.data.columns[2]]
+      colIdx_yDomains: [2, 3], // (bandDomains) index of yDomains in columnsArray
+      addToTooltip: "<p class=em>Improvement: <span class=tr> ${ colIdx_yDomains[2] - colIdx_yDomains[3] } </span></p>" // ${..} will be matched by regex /\$(?={)(.*?)}/g
     }
   }
 ]

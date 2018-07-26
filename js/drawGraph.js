@@ -3,7 +3,7 @@ import drawCall from './modules/drawCall.js'
 import wrapXLabels from './modules/wrapXLabels.js'
 import legend from './modules/legend.js'
 import barchart from './modules/prepareBarchart.js'
-import gBars from './modules/groupedBars.js'
+import createTooltip from './modules/createTooltip.js'
 
 const drawGraph = (o) => { // o == options
   /*
@@ -16,10 +16,11 @@ const drawGraph = (o) => { // o == options
       width: number,
       height: number
     },
-    barChart: {
-        type: 'simple' || 'grouped',
-        barGroup: [col1, .. coln],
-        xDomain: colName from data
+    chart: {
+        type: 'bar',
+        colIdx_xDomain: 1, // index of xDomain in columnsArray
+        colIdx_yDomains: [2, 3], // (bandDomains) index of yDomains in columnsArray
+        addToTooltip: <p> ... html with ${ colIdx_yDOmains[x] maybe math operation here } to be evaluated for each bar</p>
       },
   }
   */
@@ -30,10 +31,17 @@ const drawGraph = (o) => { // o == options
         innerHeight = o.svg.height - margin.top - margin.bottom,
         chart = o.chart,
         colIdx_xDomain = chart.colIdx_xDomain,
+        yDomains = chart.colIdx_yDomains.map(x => o.data.columns[x]),
+        yDomainsMap = chart.colIdx_yDomains.reduce(  (acc, el) => {
+                        acc[`colIdx_yDomains[${el}]`] =  o.data.columns[el]
+                        return acc;
+                      }, {}),
+          // x => {
+          //                 let mapObj = {}
+          //                 mapObj[`colIdx_yDomains[${x}]`] =  o.data.columns[x]
+          //                 return mapObj
+          //               }),
         isGBar = chart.colIdx_yDomains.length > 1 // is grouped bar
-
-
-      // !!!! maybe options obj should be passed in these functions (for setting also padding, tick format etc)
     let xScale = barchart.scale({
       type: 'scaleBand',
       paddingInner: 0.3,
@@ -52,12 +60,13 @@ const drawGraph = (o) => { // o == options
         }) : null
       // xGroupScale range will be [0, x0.bandwidth()], we will be able to set that after we have set xScale.domain
 
-    let colors = d3.schemeCategory10 // arrays of 6 pairs of related colors
+    let colors = d3.schemeCategory10
 
 
     // callback that works just inside host that provides vars like xScale, yScale, isGBar etc
     /** Draw all Graphs **/
     const drawG = (d, gHost) => {
+
       // complete xScale with domain
       let xDomain = d.colsData[colIdx_xDomain]
       barchart.scale({
@@ -65,9 +74,17 @@ const drawGraph = (o) => { // o == options
         domain: xDomain
       })
 
-      // complete yScale with domain
-      let yDomainValues = isGBar ? chart.colIdx_yDomains.map( x => d3.max(d.colsData[x]) ) : d.colsData[chart.colIdx_yDomains[0]]
-      let yDomain = [0, d3.max( yDomainValues )]
+
+      // applies for both simple or grouped barchart cases
+      let yDomainsMaxValue = chart.colIdx_yDomains.reduce( (acc, dataColIdx, i, arr) => {
+        let maxValueInCol = d3.max(d.colsData[dataColIdx])
+
+        if (acc < maxValueInCol) acc = maxValueInCol
+
+        return acc;
+      }, 0)
+
+      let yDomain = [0, yDomainsMaxValue]
       barchart.scale({
         scaleFn: yScale,
         domain: yDomain,
@@ -127,7 +144,6 @@ const drawGraph = (o) => { // o == options
         })
       )
 
-
       chartBands.data(bandData).enter()
 
       chartBands.each( (d, i, g) => {
@@ -160,12 +176,10 @@ const drawGraph = (o) => { // o == options
 
       wrapXLabels(svg, xScale.bandwidth())
 
-
       let title = legend.title(svg, d.colsData[0], margin).attr('class', 'title')
 
       let yAxisLabel = isGBar ? null :
             legend.yLabel(svg, d.colsName[chart.colIdx_yDomains[0]], margin)
-
 
       if (isGBar) {
         let legendOptions = {
@@ -178,8 +192,11 @@ const drawGraph = (o) => { // o == options
      }
 
 
-     /*** TOOLTIP ***/
+     /*** create TOOLTIP and display as needed ***/
+
      chartBands.each( (d,i,g) => {
+       //TODO - split following code somehow into smaller Fns -- createHoverTarget(), createTtp(), behaveAtHover()
+       
        let band = d3.select(g[i])
 
        // invisible el to hover over
@@ -200,31 +217,27 @@ const drawGraph = (o) => { // o == options
            + g[i].transform.animVal[0].matrix.e
            + hoverBorders.width/2
            + +hoverTarget.attr('x')
-       let ttpBot = hoverBorders.height
 
-       hoverTarget.on('mouseover', (d,i,g) => {
-          // createHtml(template, vars) --> should be different depending on chart
-           d3Ttp.html(
-             d.map(x => `<p>${x.key}: <span class='right tr'>${+x.value.toFixed(2)}</span></p>`).join('')
-               + `<p class="em">Improvement: <span class='tr'>${+d.reduce( (acc, el, idx, arr) => {
-                       acc = idx == 0 ? el.value : acc - el.value;
-                       return acc
-                     }, 0).toFixed(2)}</span></p>`
-                 )
-             .classed('show', true)
-             .style('left', `${ ttpLeft - ttp.getBoundingClientRect().width/2 }px`)
-       })
+        const createTtp = createTooltip({
+          addedHtml: chart.addToTooltip,
+          yDomainsMap,
+          ttp,
+          ttpLeft,
+          d3Ttp,
+        })
 
-         .on('mousemove', (d,i,g) => {
-               d3Ttp.style('top',  d3.event.offsetY - ttp.getBoundingClientRect().height - 30 + 'px') //-
-         })
-         .on('mouseleave', (d,i,g) => {
-           d3Ttp.html('')
+        hoverTarget.on('mouseover', createTtp)
+
+          .on('mousemove', (d,i,g) => {
+            d3Ttp.style('top',  d3.event.offsetY - ttp.getBoundingClientRect().height - 30 + 'px')
+          })
+          .on('mouseleave', (d,i,g) => {
+            d3Ttp.html('')
              .classed('show', false)
-         })
+          })
 
      })
-     /*** END TOOLTIP ***/
+     /*** END create TOOLTIP and display as needed ***/
 
 
    } /*** END DrawG ***/
