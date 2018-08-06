@@ -1,6 +1,7 @@
 import { initFirstQuery } from './init-content.js'
 import { switchQuery } from './new-query.js'
 import domObserver from './modules/domObserver.js'
+import setYasqe from './queryGenerator.js'
 
 
 const init = (e) => {
@@ -18,7 +19,6 @@ const init = (e) => {
   })
 
   domObserver()
-
 
 }
 

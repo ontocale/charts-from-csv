@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <title>Demo Analysis Based on Ontology</title>
     <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script type="module" src="js/scripts.js">
-    </script>
+    <!-- <script type="module" src="js/scripts.js"></script> -->
+    <script type="module" src="js/scripts2.js"></script>
+
     <link rel="stylesheet"  href="styles.css"></link>
+    <link href='//cdn.jsdelivr.net/npm/yasgui-yasqe@2.11.22/dist/yasqe.min.css' rel='stylesheet' type='text/css'/>
+    <script src='//cdn.jsdelivr.net/npm/yasgui-yasqe@2.11.22/dist/yasqe.bundled.min.js'></script>
   </head>
 
   <body>
@@ -15,12 +18,30 @@
 
     <h1>Demo Analysis Based on Ontology</h1>
 
-    <nav class="main-nav">
+    <!-- <nav class="main-nav">
       <a href="#" id="1" class="nav-btn active">First Query</a>
       <a href="#" id="2" class="nav-btn">Second Query</a>
+    </nav> -->
+
+    <nav class="main-nav">
+      <a href="#" id="new-query" class="nav-btn active" data-page="query-name">New Query</a>
+      <a href="#" id="prev-query" class="nav-btn">
+        Previous Queries
+        <div class="query-history hidden"></div>
+      </a>
     </nav>
 
-    <div class="content clearfix"></div>
+
+    <div class="content clearfix">
+      <div class="query-name page active">
+        <label class="input-q-name-box">
+            <input type="text" id="input-q-name" placeholder="Name of New Query" name="" value="">
+            <button name="button" id="add-q-name">Start New Query</button>
+        </label>
+      </div>
+      <!-- end .query-name page  -->
+
+    </div>
 
   </div>
   </body>

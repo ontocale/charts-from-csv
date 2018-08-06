@@ -7,7 +7,7 @@ const common = {
   graphHost: {
     location: document,
     selector: null, // eg: 'table tr th[rowspan]' -->  string to use in graphHost.location.querySelectorAll(graphHost.selector)
-    is: []
+    is: []  // array of elements (possible also array of the ONE element) that hosts the graphs
   }
 }
 
