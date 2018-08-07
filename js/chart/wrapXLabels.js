@@ -1,11 +1,13 @@
 
 const wrapToWidth = (d,i,g,w) => {
+
+  // fn to return somelongblablatext as 'some..ext'
   const trim = (text, maxLen) => {
-    // fn to return somelongblablatext as 'some..ext'
     if (text.length < maxLen) return;
     text = text.slice(0,5).concat(['..']).concat(text.slice(-3))
     return text
   }
+
 
   let textEl = g[i]
   let d3Text = d3.select(textEl)
@@ -20,7 +22,8 @@ const wrapToWidth = (d,i,g,w) => {
     if (x.length > textMaxLen) return trim(d, textMaxLen)
     else return x
   })
-    // return if it was only one
+
+  // return if it was only one
   if (textPieces.length == 1) {
     d3Text.text(textPieces[0])
     return

@@ -167,6 +167,9 @@ table tr {
 }
 /*** End Styles for YASQE ***/
 
+
+
+
 /*** Styles for Charts ***/
 
 /* user config btn and box */
@@ -195,6 +198,7 @@ table tr {
   background: rgba(255, 255, 255, 0.9);
   font-size: 14px;
   text-align: left;
+  font-weight: normal;
 }
 .config-box {
   display: none;
@@ -203,7 +207,7 @@ table tr {
   display: block;
 }
 .conf-section {
-  margin-bottom: 16px;
+  margin-bottom: 24px;
 }
 .config-box h3 {
   margin-bottom: 14px;
@@ -211,10 +215,21 @@ table tr {
 }
 .config-box label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
+.config-box label input {
+  margin-right: 12px;
+  vertical-align: top;
+}
+
 .reconfig-btn {
   margin-top: 40px;
+  padding: 0 20px;
+  height: 40px;
+  line-height: 38px;
+  border: none;
+  border-radius: 5px;
+  background: lightblue;
 }
 /* end user config btn and box */
 

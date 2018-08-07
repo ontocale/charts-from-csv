@@ -1,8 +1,8 @@
-import {setActivePage, setActiveNavBtn, removeGhostElements} from './nav.js'
+import {setActivePage, setActiveNavBtn, removeGhostElements} from '../nav.js'
 
 
 const updateQueryHistory = (data) => {
-  let linkToKeep = document.querySelector('.query-history .ghost') //should be just one 'a' hidden
+  let linkToKeep = document.querySelector('.query-history .ghost') 
   if (!linkToKeep) return
 
   linkToKeep.classList.remove('ghost')

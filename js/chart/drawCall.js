@@ -7,7 +7,6 @@ const drawCall = (o) => {
 
   // a bit diff course of action depending on target being
   // array of one container for all graphs or array of container for each graph
-
   if (target.length == 1) {
 
     target = d3.select(target[0])

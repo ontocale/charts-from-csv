@@ -125,29 +125,7 @@ const drawTable = (config) => {
 
     /** For now we treat cases where we compare apples with apples => there can be just one xDomain **/
 
-    // let mapPossibleDomainsName = {}
-      // let xDomainName = colsWithoutNumbers.length == 1 ? colsWithoutNumbers[0] : null
-      // if (!xDomainName) {
-        // mapPossibleDomainsName.x = colsWithoutNumbers.map( x => {
-        //                       return {
-        //                         colName: x,
-        //                         pos: data.columns.indexOf(x)
-        //                       }
-        //                     })
-      // }
-      // let yDomainName = colsWithNumbers.length == 1 ? colsWithNumbers : null  // will still be needed in an array
-      // if (!yDomainName) {
-        // possibleDomainsName.y = colsWithNumbers
-        // mapPossibleDomainsName.y = colsWithNumbers.map(
-        //             x => {
-        //               return {
-        //                 colName: x,
-        //                 pos: data.columns.indexOf(x)
-        //               }
-        //             })
-      // }
-
-    // return upgraded config
+      // return upgraded config
     config.data = data;
 
     config.chart = {}
@@ -157,11 +135,6 @@ const drawTable = (config) => {
         x: colWithoutNumbers,
         y: config.chart.yDomainsNameToConfig ? colsWithNumbers.slice(0, 1) : colsWithNumbers
     }
-
-    // if (xDomainName) config.chart.domainsName.x = xDomainName
-    // if (yDomainName) config.chart.domainsName.y = yDomainName
-
-    // if (!xDomainName || !yDomainName) config.chart.mapPossibleDomainsName = mapPossibleDomainsName
 
     config.refinedData = tbodiesData;
 

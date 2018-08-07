@@ -1,14 +1,14 @@
-import { convertToNumbers } from './modules2/string-to-number.js'
-import drawTable from './modules2/drawTable.js'
-import drawGraph from './modules2/drawGraph.js'
-import genChartConfig from './modules2/generateChartConfig.js'
-import toggleTableCharts from './modules2/toggleTableCharts.js'
-import toDoInPage from './modules2/pageActionAtQuerySuccess.js'
-import updateQueryHistory from './modules2/updateQueryHistory.js'
+import { convertToNumbers } from './chart/string-to-number.js'
+import drawTable from './chart/drawTable.js'
+import drawGraph from './chart/drawGraph.js'
+import genChartConfig from './chart/generateChartConfig.js'
+import toggleTableCharts from './chart/toggleTableCharts.js'
+import toDoInPage from './pageActionAtQuerySuccess.js'
+import updateQueryHistory from './chart/updateQueryHistory.js'
 
 const addChartConf = (config) => {
   let moreConf= {
-    svg: {
+    svg: {   // for now, standard svg box
       width: 700,
       height: 430,
       margin: {top: 70, bottom: 80, left: 50, right: 0},
@@ -39,14 +39,14 @@ const setYasqe = (config) => {
             .then( convertToNumbers )
             .then( drawTable({ tableHost: config.yasqeBox }) )
             .then( toDoInPage )
-            // .then( drawTable({ tableHost: config.table }) )
             .then( addChartConf )
             .then( drawGraph )
             .then( genChartConfig )
             .then( toggleTableCharts )
             .then( updateQueryHistory )
+            // TODO catch err smthg
           }
-          // at fail clean yasqe -> yasqe.setValue('')
+          // TODO at fail clean yasqe -> yasqe.setValue('')
       },
       args: [{
         name: "resultFormat",

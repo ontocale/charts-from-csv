@@ -30,10 +30,13 @@ const drawGraph = (o) => { // o == options
         innerWidth = chart.svg.width - margin.left - margin.right,
         xDomainName = chart.domainsName.x,
         yDomainsName = chart.domainsName.y,
-        yDomainsMap = null,  // needed in createTooltip for custom tooltip
+        yDomainsMap = null,  // needed in createTooltip for custom tooltip / not used right now
 
-        canBeGBar = Array.isArray(o.chart.yDomainsNameToConfig),
         isGBar = yDomainsName.length > 1 // is grouped bar
+
+    let yDomainsIdx = yDomainsName.map( x => o.data.columns.indexOf(x)) // yDomainsIdx in colsData
+    // let yDomainsIdx = yDomainsName.map( x => d.colsName.indexOf(x)) // yDomainsIdx in colsData
+
 
     let xScale = barchart.scale({
       type: 'scaleBand',
@@ -68,9 +71,6 @@ const drawGraph = (o) => { // o == options
       })
 
 
-      // applies for both simple or grouped barchart cases
-      // because yDomainsName is an array even if it has just one element
-      let yDomainsIdx = yDomainsName.map( x => d.colsName.indexOf(x)) // yDomainsIdx in colsData // should be computed outside to avoit processing for each graph
       let yDomainsValues = []
       yDomainsIdx.forEach( x => yDomainsValues = yDomainsValues.concat(d.colsData[x]))
 

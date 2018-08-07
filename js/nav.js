@@ -1,10 +1,5 @@
-import { get, id, cl, htmlEl } from '../domEls.js'
+import { get, id, cl, htmlEl } from './domEls.js'
 
-// const setActivePage = (target) => {
-//   let activePage = document.querySelector('.page.active')
-//   activePage.classList.remove('active')
-//   target.classList.add('active')
-// }
 const setActivePage = (source) => {
   let activePage = document.querySelector('.page.active')
   if (activePage) activePage.classList.remove('active')

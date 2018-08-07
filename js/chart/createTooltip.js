@@ -50,7 +50,7 @@ const createTooltip = (inputs, d, i, g) => {
         .classed('show', true)
         .style('left', `${ ttpLeft - ttp.getBoundingClientRect().width/2 }px`)
 
-    if(customContent) ttp.innerHTML += customContent
+    if (customContent) ttp.innerHTML += customContent
 
   }
 
